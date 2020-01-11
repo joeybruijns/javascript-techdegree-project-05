@@ -1,5 +1,5 @@
 const galleryItems = document.getElementById('gallery');
-const peopleURL = 'https://randomuser.me/api/?results=10&seed=81ecb727f6ff0098';
+const peopleURL = 'https://randomuser.me/api/?results=12&seed=6dcfff5c6d6c8940';
 
 async function fetchData(url) {
     const response = await fetch(url);
@@ -13,7 +13,7 @@ async function fetchData(url) {
     return Promise.all(profiles);
 }
 
-function generateHTML(data) {
+function generateGalleryHTML(data) {
     data.map(person => {
         const div = document.createElement('div');
         div.setAttribute('class', 'card');
@@ -32,4 +32,4 @@ function generateHTML(data) {
 }
 
 fetchData(peopleURL)
-    .then(generateHTML);
+    .then(generateGalleryHTML);
