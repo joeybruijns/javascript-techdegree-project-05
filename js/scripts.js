@@ -1,16 +1,14 @@
 const galleryItems = document.getElementById('gallery');
-const peopleURL = 'https://randomuser.me/api/?results=12&nat=us&seed=ca254b6ad8c3710a';
+const peopleURL = 'https://randomuser.me/api/?results=12&nat=us';
 
 // Fetch the data and return 12 Objects for the employee directory
 async function fetchData(url) {
     const response = await fetch(url);
-    console.log(response.url); // DELETE!!!
     const responseJSON = await response.json();
 
-    const profiles = responseJSON.results.map( async (person) => {
+    const profiles = responseJSON.results.map(async (person) => {
         return {...person};
     });
-    console.log(profiles); // DELETE!!!
     return Promise.all(profiles);
 }
 
@@ -45,8 +43,9 @@ function generateModalHTML(employee) {
     modalDiv.setAttribute('class', 'modal-container');
     galleryItems.appendChild(modalDiv);
 
+    // Getting the right value for Birthday [month-day-year]
     const dob = employee.dob.date;
-    const modalBirthdayFormat = `${dob.slice(5, 7)}/${dob.slice(8,10)}/${dob.slice(2,4)}`;
+    const modalBirthdayFormat = `${dob.slice(5, 7)}/${dob.slice(8, 10)}/${dob.slice(2, 4)}`;
 
     modalDiv.innerHTML = `
         <div class="modal">
@@ -66,7 +65,6 @@ function generateModalHTML(employee) {
             </div>
         </div>
     `;
-    //TODO: Fix Location - Street value
 
     // if the close button gets clicked, the modal window is removed from the page
     document.getElementById('modal-close-btn').addEventListener('click', () => {
@@ -78,6 +76,3 @@ fetchData(peopleURL)
     .then(generateGalleryHTML);
 
 // TODO: error handling
-// TODO: Look into the search function??
-// TODO: Close Modal Window by clicking anywhere
-// TODO: DRY - on modalDiv (re-use code from galleryDiv)
