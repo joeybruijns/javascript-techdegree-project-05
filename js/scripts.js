@@ -72,7 +72,10 @@ function generateModalHTML(employee) {
     });
 }
 
+// Generate the HTML or catch the error if fetching data fails
 fetchData(peopleURL)
-    .then(generateGalleryHTML);
-
-// TODO: error handling
+    .then(generateGalleryHTML)
+    .catch(error => {
+        galleryItems.innerHTML = '<h3>Sorry, something went wrong..</h3>';
+        console.log(error);
+    });
